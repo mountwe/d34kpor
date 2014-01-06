@@ -16,20 +16,41 @@
 </head>
 <body>
 	<script type="text/javascript">
-	  var dataset = [];
-	  for (var i = 0; i < 25; i++) {
-		var newNumber = Math.floor(Math.random() * 30);
-		dataset.push(newNumber);
-	  }
-		d3.select("body").selectAll("div")
-			.data(dataset)
-			.enter()
-			.append("div")
-			.attr("class", "bar")
-			.style("height", function(d) {
-				var barHeight = d * 5;  //Scale up by factor of 5
-				return barHeight + "px";
-			});
+		//width and height
+		var w = 500;
+		var h = 50;
+		
+		//Data
+		var dataset = [5, 10, 15, 20, 25];
+		//Create SVG element
+		var svg = d3.select("body")
+			.append("svg")
+			.attr("width", w)
+			.attr("height", h);
+			//.data(dataset)
+			//.enter()
+			//.append("circle");
+		// svg.selectAll("circle")
+		//	.data(dataset)
+		//	.enter()
+		//	.append("circle");
+		//Create circle
+		var circles = svg.selectAll("circle")
+						.data(dataset)
+						.enter()
+						.append("circle");
+		circles.attr("cx", function(d, i) {
+			return (i * 50) + 25;
+		})
+		.attr("cy", h/2)
+		.attr("r", function(d) {
+			return d;
+		})
+		.attr("fill", "yellow")
+		.attr("stroke", "orange")
+		.attr("stroke-width", function(d) {
+			return d/2;
+		});
 	</script>
 </body>
 </html>
